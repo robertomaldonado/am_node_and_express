@@ -1,23 +1,17 @@
-const http = require("http");
+const express = require("express");
+const app = express();
+const port = 3000;
 
-function requestHandler(req, res) {
-  if (req.url === "/time") {
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/html");
-    res.end("<h3>" + new Date().toISOString() + "</h3>");
-  } else if (req.url === "/") {
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/html");
-    res.end("<h3>Hello, World!</h3>");
-  } else {
-    res.statusCode = 404;
-    res.setHeader("Content-Type", "text/html");
-    res.end("<h3>404 Not Found</h3>");
-  }
-}
+app.get("/time", (req, res) => {
+  responseHtml =
+    "<h3>Current time is: " + new Date().toLocaleTimeString() + "</h3>";
+  res.send(responseHtml);
+});
 
-const server = http.createServer(requestHandler);
+app.get("/", (req, res) => {
+  res.send("<h3>Try '/time' endpoint</h3>");
+});
 
-server.listen(3000, "localhost", () => {
-  console.log("Server is running on http://localhost:3000");
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
