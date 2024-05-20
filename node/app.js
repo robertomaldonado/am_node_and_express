@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -19,6 +22,14 @@ app.get("/", (req, res) => {
 app.post("/store-user", (req, res) => {
   let userMsg = "Successfully stored user: ";
   const username = req.body.username;
+  const filePath = path.join(__dirname, "data", "users.json");
+
+  // Read current users
+  const fileData = fs.readFileSync(filePath, "utf8");
+  const users = JSON.parse(fileData);
+  users.push(username);
+  // Save updatged users
+  fs.writeFileSync(filePath, JSON.stringify(users));
   res.send("<h3>" + userMsg + username + "</h3>");
 });
 
