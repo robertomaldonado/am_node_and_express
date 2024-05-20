@@ -1,7 +1,3 @@
 # Code repo
 
-## Setting up with Node Package Manager
-
-- npm init
-
-- npm install
+...Testing JS development with Copilot...
