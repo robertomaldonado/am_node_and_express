@@ -1,0 +1,22 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "100 days of code",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/robertomaldonado/am_node_and_express.git"
+  },
+  "author": "Rob Maldo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robertomaldonado/am_node_and_express/issues"
+  },
+  "homepage": "https://github.com/robertomaldonado/am_node_and_express#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
