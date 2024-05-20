@@ -13,6 +13,20 @@ app.get("/time", (req, res) => {
   res.send(responseHtml);
 });
 
+app.get("/users", (req, res) => {
+  const filePath = path.join(__dirname, "data", "users.json");
+  const fileData = fs.readFileSync(filePath, "utf8");
+  const users = JSON.parse(fileData);
+
+  let responseData = "Users: <ul>";
+  for (let user of users) {
+    responseData += "<li>" + user + "</li>";
+  }
+  responseData += "</ul>";
+
+  res.send(responseData);
+});
+
 app.get("/", (req, res) => {
   const nameForm =
     "<form action='/store-user' method='post'><label>Name</label><input type='text' name='username'/><button type='submit'>Submit</button></form>";
