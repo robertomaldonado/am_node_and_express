@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs");
 const path = require("path");
 const app = express();
 const port = 3000;
@@ -28,6 +29,18 @@ app.get("/confirm", (req, res) => {
 app.get("/recommend", (req, res) => {
   let htmlFilePath = path.join(__dirname, "views", "recommend.html");
   res.sendFile(htmlFilePath);
+});
+
+app.post("/recommend", (req, res) => {
+  const restaurant = req.body;
+  const filePath = path.join(__dirname, "data", "restaurants.json");
+  const fileData = fs.readFileSync(filePath, "utf8");
+  const storedRestaurants = JSON.parse(fileData);
+
+  storedRestaurants.push(restaurant);
+
+  fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
+  res.redirect("/restaurants");
 });
 
 app.get("/restaurants", (req, res) => {
