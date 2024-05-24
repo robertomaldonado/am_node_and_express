@@ -30,11 +30,14 @@ app.get("/confirm", (req, res) => {
 });
 
 app.get("/recommend", (req, res) => {
-  res.sendFile("recommend");
+  res.render("recommend");
 });
 
 app.get("/restaurants", (req, res) => {
-  res.render("restaurants");
+  const filePath = path.join(__dirname, "data", "restaurants.json");
+  const fileData = fs.readFileSync(filePath, "utf8");
+  const storedRestaurants = JSON.parse(fileData);
+  res.render("restaurants", { restaurants: storedRestaurants });
 });
 
 // Handle the form submission for the recommendation
