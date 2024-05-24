@@ -40,7 +40,7 @@ app.post("/recommend", (req, res) => {
   storedRestaurants.push(restaurant);
 
   fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
-  res.redirect("/restaurants");
+  res.redirect("/confirm");
 });
 
 app.get("/restaurants", (req, res) => {
