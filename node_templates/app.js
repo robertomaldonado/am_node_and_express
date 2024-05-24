@@ -1,5 +1,6 @@
 const express = require("express");
 const fs = require("fs");
+const ejs = require("ejs");
 const path = require("path");
 const app = express();
 const port = 3000;
@@ -10,27 +11,33 @@ app.use(express.urlencoded({ extended: true }));
 // Register in middleware the static files
 app.use(express.static("public"));
 
+// Specify where the views are located
+app.set("views", path.join(__dirname, "views"));
+// Register view engine to be used
+app.set("view engine", "ejs");
+
 // Routes for the application
 app.get("/", (req, res) => {
-  let htmlFilePath = path.join(__dirname, "views", "index.html");
-  res.sendFile(htmlFilePath);
+  res.render("index");
 });
 
 app.get("/about", (req, res) => {
-  let htmlFilePath = path.join(__dirname, "views", "about.html");
-  res.sendFile(htmlFilePath);
+  res.render("about");
 });
 
 app.get("/confirm", (req, res) => {
-  let htmlFilePath = path.join(__dirname, "views", "confirm.html");
-  res.sendFile(htmlFilePath);
+  res.render("confirm");
 });
 
 app.get("/recommend", (req, res) => {
-  let htmlFilePath = path.join(__dirname, "views", "recommend.html");
-  res.sendFile(htmlFilePath);
+  res.sendFile("recommend");
 });
 
+app.get("/restaurants", (req, res) => {
+  res.render("restaurants");
+});
+
+// Handle the form submission for the recommendation
 app.post("/recommend", (req, res) => {
   const restaurant = req.body;
   const filePath = path.join(__dirname, "data", "restaurants.json");
@@ -41,11 +48,6 @@ app.post("/recommend", (req, res) => {
 
   fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
   res.redirect("/confirm");
-});
-
-app.get("/restaurants", (req, res) => {
-  let htmlFilePath = path.join(__dirname, "views", "restaurants.html");
-  res.sendFile(htmlFilePath);
 });
 
 // Start the server
