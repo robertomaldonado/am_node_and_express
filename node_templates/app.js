@@ -1,7 +1,10 @@
-const express = require("express");
 const fs = require("fs");
 const ejs = require("ejs");
 const path = require("path");
+
+const express = require("express");
+const uuid = require("uuid");
+
 const app = express();
 const port = 3000;
 
@@ -21,18 +24,22 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// About page
 app.get("/about", (req, res) => {
   res.render("about");
 });
 
+// Contact page
 app.get("/confirm", (req, res) => {
   res.render("confirm");
 });
 
+// Recommendation page
 app.get("/recommend", (req, res) => {
   res.render("recommend");
 });
 
+// Restaurants page
 app.get("/restaurants", (req, res) => {
   const filePath = path.join(__dirname, "data", "restaurants.json");
   const fileData = fs.readFileSync(filePath, "utf8");
@@ -40,9 +47,21 @@ app.get("/restaurants", (req, res) => {
   res.render("restaurants", { restaurants: storedRestaurants });
 });
 
+// Restaurant details page (dynamic)
+app.get("/restaurants/:id", (req, res) => {
+  const resId = req.params.id;
+  const filePath = path.join(__dirname, "data", "restaurants.json");
+  const fileData = fs.readFileSync(filePath, "utf8");
+  const storedRestaurants = JSON.parse(fileData);
+  const restaurant = storedRestaurants.find((r) => r.id === resId);
+  res.render("restaurant-detail", { restaurant });
+});
+
 // Handle the form submission for the recommendation
 app.post("/recommend", (req, res) => {
   const restaurant = req.body;
+  restaurant.id = uuid.v4();
+
   const filePath = path.join(__dirname, "data", "restaurants.json");
   const fileData = fs.readFileSync(filePath, "utf8");
   const storedRestaurants = JSON.parse(fileData);
