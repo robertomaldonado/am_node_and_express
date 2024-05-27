@@ -54,6 +54,9 @@ app.get("/restaurants/:id", (req, res) => {
   const fileData = fs.readFileSync(filePath, "utf8");
   const storedRestaurants = JSON.parse(fileData);
   const restaurant = storedRestaurants.find((r) => r.id === resId);
+  if (restaurant === undefined) {
+    return res.render("404", { message: "Restaurant not found" });
+  }
   res.render("restaurant-detail", { restaurant });
 });
 
