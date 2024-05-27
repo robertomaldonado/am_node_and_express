@@ -55,7 +55,7 @@ app.get("/restaurants/:id", (req, res) => {
   const storedRestaurants = JSON.parse(fileData);
   const restaurant = storedRestaurants.find((r) => r.id === resId);
   if (restaurant === undefined) {
-    return res.render("404", { message: "Restaurant not found" });
+    return res.status(404).render("404", { message: "Restaurant not found" });
   }
   res.render("restaurant-detail", { restaurant });
 });
@@ -77,6 +77,11 @@ app.post("/recommend", (req, res) => {
 
 app.use((req, res) => {
   res.status(404).render("404", { message: "Sorry! Page not found" });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("500", { message: "Something went wrong!" });
 });
 
 // Start the server
