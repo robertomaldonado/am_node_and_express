@@ -1,9 +1,9 @@
-const fs = require("fs");
-const ejs = require("ejs");
 const path = require("path");
 
 const express = require("express");
 const uuid = require("uuid");
+
+const resData = require("./util/restaurant-data");
 
 const app = express();
 const port = 3000;
@@ -41,18 +41,14 @@ app.get("/recommend", (req, res) => {
 
 // Restaurants page
 app.get("/restaurants", (req, res) => {
-  const filePath = path.join(__dirname, "data", "restaurants.json");
-  const fileData = fs.readFileSync(filePath, "utf8");
-  const storedRestaurants = JSON.parse(fileData);
-  res.render("restaurants", { restaurants: storedRestaurants });
+  const restaurants = resData.getStoredRestaurants();
+  res.render("restaurants", { restaurants });
 });
 
 // Restaurant details page (dynamic)
 app.get("/restaurants/:id", (req, res) => {
   const resId = req.params.id;
-  const filePath = path.join(__dirname, "data", "restaurants.json");
-  const fileData = fs.readFileSync(filePath, "utf8");
-  const storedRestaurants = JSON.parse(fileData);
+  const storedRestaurants = resData.getStoredRestaurants();
   const restaurant = storedRestaurants.find((r) => r.id === resId);
   if (restaurant === undefined) {
     return res.status(404).render("404", { message: "Restaurant not found" });
@@ -64,14 +60,8 @@ app.get("/restaurants/:id", (req, res) => {
 app.post("/recommend", (req, res) => {
   const restaurant = req.body;
   restaurant.id = uuid.v4();
+  resData.storeInRestaurants(restaurant);
 
-  const filePath = path.join(__dirname, "data", "restaurants.json");
-  const fileData = fs.readFileSync(filePath, "utf8");
-  const storedRestaurants = JSON.parse(fileData);
-
-  storedRestaurants.push(restaurant);
-
-  fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
   res.redirect("/confirm");
 });
 
