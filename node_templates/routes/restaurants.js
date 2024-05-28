@@ -16,8 +16,22 @@ router.get("/recommend", (req, res) => {
 
 // Restaurants page
 router.get("/restaurants", (req, res) => {
+  let order = req.query.order;
+  let nextOrder = "desc";
+
   const restaurants = resData.getStoredRestaurants();
-  res.render("restaurants", { restaurants });
+  if (order !== "asc") {
+    nextOrder = "asc";
+    restaurants.sort((resA, resB) => {
+      return resB.name.localeCompare(resA.name);
+    });
+  } else {
+    nextOrder = "desc";
+    restaurants.sort((resA, resB) => {
+      return resA.name.localeCompare(resB.name);
+    });
+  }
+  res.render("restaurants", { restaurants: restaurants, nextOrder: nextOrder });
 });
 
 // Restaurant details page (dynamic)

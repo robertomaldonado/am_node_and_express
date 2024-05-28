@@ -1,8 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 
+const filePath = path.join(__dirname, "..", "data", "restaurants.json");
+
 function getStoredRestaurants() {
-  const filePath = path.join(__dirname, "..", "data", "restaurants.json");
   const fileData = fs.readFileSync(filePath, "utf8");
   const storedRestaurants = JSON.parse(fileData);
   return storedRestaurants;
