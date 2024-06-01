@@ -7,6 +7,7 @@ html {
 
 body {
   margin: 0;
+  background: linear-gradient(to left, white, blanchedalmond);
 }
 
 main {
@@ -35,8 +36,8 @@ ul, ol {
 .btn {
   cursor: pointer;
   font: inherit;
-  background-color: rgb(89, 0, 255);
-  border: 1px solid rgb(89, 0, 255);
+  background-color: rgb(0, 123, 194);
+  border: 1px solid rgb(0, 123, 194);
   color: white;
   padding: 0.5rem 1.5rem;
   border-radius: 4px;
@@ -44,15 +45,15 @@ ul, ol {
 
 .btn:hover,
 .btn:active {
-  background-color: rgb(71, 4, 196);
-  border-color: rgb(71, 4, 196);
+  background-color: rgb(0, 123, 194);
+  border-color: black;
   color: white;
 }
 
 .btn.btn-alt {
   background-color: transparent; 
   border-color: transparent;
-  color:rgb(89, 0, 255);
+  color:rgb(0, 123, 194);
 }
 
 .btn.btn-alt:hover,
@@ -64,7 +65,7 @@ ul, ol {
 
 #main-header {
   padding: 2rem 10%;
-  background-color: rgb(89, 0, 255);
+  background-color: rgb(0, 123, 194);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -73,7 +74,7 @@ ul, ol {
 #logo a {
   font-size: 2rem;
   font-weight: bold;
-  color: white;
+  color: blanchedalmond;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -86,7 +87,7 @@ ul, ol {
 }
 
 #main-header nav a {
-  color: white;
+  color: lightyellow;
   font-size: 1.25rem;
 }
 
