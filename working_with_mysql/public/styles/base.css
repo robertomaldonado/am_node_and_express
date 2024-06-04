@@ -7,7 +7,7 @@ html {
 
 body {
   margin: 0;
-  background: linear-gradient(to left, white, blanchedalmond);
+  background: linear-gradient(to left, white, lightgray);
 }
 
 main {
@@ -65,7 +65,7 @@ ul, ol {
 
 #main-header {
   padding: 2rem 10%;
-  background-color: rgb(0, 123, 194);
+  background:linear-gradient(to bottom, white, black);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -74,7 +74,7 @@ ul, ol {
 #logo a {
   font-size: 2rem;
   font-weight: bold;
-  color: blanchedalmond;
+  color: whitesmoke;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -87,11 +87,11 @@ ul, ol {
 }
 
 #main-header nav a {
-  color: lightyellow;
+  color: whitesmoke;
   font-size: 1.25rem;
 }
 
 #main-header nav a:hover,
 #main-header nav a:active {
-  color:rgb(255, 217, 0);
+  color: white;
 }
