@@ -43,6 +43,19 @@ router.get("/posts/:id/edit", async (req, res) => {
   res.render("update-post", { post: posts[0] });
 });
 
+router.post("/posts/:id/edit", async (req, res) => {
+  const { title, summary, content, author } = req.body;
+  const query = `
+  UPDATE posts SET 
+    title = ?, 
+    summary = ?, 
+    body = ?
+  WHERE id = ?
+  `;
+  await db.query(query, [title, summary, content, req.params.id]);
+  res.redirect("/posts");
+});
+
 router.get("/posts", async (req, res) => {
   const query = `
   SELECT posts.*, authors.name AS author_name 
