@@ -10,8 +10,6 @@ They include
 - Eatwel - A small restaurant recomendations website (works with mysql)
 - Blog - A small blog (works with mysql)
 
-# EATWELL
+Remember if mysql server wont start use the command:
 
-## Restaurant Recommendations Site
-
-This is a website developed in stages to test out Copilot functionality as a pair programming tool.
+- sudo /usr/local/mysql/support-files/mysql.server <start, stop, restart>
